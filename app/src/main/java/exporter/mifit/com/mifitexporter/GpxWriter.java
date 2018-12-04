@@ -1,8 +1,5 @@
 package exporter.mifit.com.mifitexporter;
 
-import android.os.Environment;
-
-import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
@@ -32,6 +29,9 @@ public class GpxWriter {
             printWriter.println("  <link href='https://github.com/botmakerdvd/amazfit_exporter'>");
             printWriter.println("    <text>Amazfit exporter</text>");
             printWriter.println("  </link>");
+            printWriter.println("  <link href='https://github.com/atum-martin/MiFitExporter'>");
+            printWriter.println("    <text>MiFit exporter</text>");
+            printWriter.println("  </link>");
             printWriter.println("  <time>" + timeStr + ".000Z</time>");
             printWriter.println(" </metadata>");
             printWriter.println(" <trk>");
@@ -41,7 +41,7 @@ public class GpxWriter {
                 GpsLocation location = locationList.get(i);
                 timeStr = dateFormat.format(dataPointTimestamp)+"T"+timeFormat.format(dataPointTimestamp);
 
-                printWriter.println("   <trkpt lon='" + location.getLongitude() + "' lat='" + location.getLongitude() + "'>");
+                printWriter.println("   <trkpt lon='" + location.getLongitude() + "' lat='" + location.getLatitude() + "'>");
                 if (((double) location.getAltitude()) != -200000.0d) {
                     printWriter.println("    <ele>" + (location.getAltitude() / 10.0f) + "</ele>");
                 }

@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.widget.Toast;
 
 import java.io.File;
 
@@ -34,7 +33,7 @@ public class RootTools {
             dir.mkdirs();
         }
         if(SU.available()) {
-            SU.run("cp " + ((String) SU.run("ls /data/data/com.xiaomi.hm.health/databases/origin_db_* | grep -v journal").get(0)) + " " + pathTo);
+            SU.run("cp " + (SU.run("ls /data/data/com.xiaomi.hm.health/databases/origin_db_* | grep -v journal").get(0)) + " " + pathTo);
         }
     }
 

@@ -19,7 +19,7 @@
         </activity>
         <activity
             android:name="com.sweetzpot.stravazpot.authenticaton.ui.StravaLoginActivity"
-             />
+            android:label="@string/login_strava" />
     </application>
 
 </manifest>

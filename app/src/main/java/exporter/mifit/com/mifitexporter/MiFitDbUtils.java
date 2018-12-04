@@ -42,8 +42,8 @@ public class MiFitDbUtils {
             float longitude = 0f;
             for(int i = 0; i < positions.length; i++){
                 String[] position = positions[i].split(",");
-                latitude += Float.parseFloat(position[0]) / 1.0E8f;
-                longitude += Float.parseFloat(position[1]) / 1.0E8f;
+                latitude += (Float.parseFloat(position[0]) / 100000000);
+                longitude += (Float.parseFloat(position[1]) / 100000000);
                 output.add(new GpsLocation(latitude, longitude, altitudes[i]));
             }
             Log.i(Constants.DB_TAG,"Gps locations added: "+positions.length);
