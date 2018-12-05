@@ -10,9 +10,9 @@ import java.util.List;
 
 public class MiFitDbUtils {
 
-    SQLiteDatabase connection;
+    private SQLiteDatabase connection;
 
-    public MiFitDbUtils(String databaseFile){
+    MiFitDbUtils(String databaseFile){
         connection = SQLiteDatabase.openOrCreateDatabase(databaseFile, null);
     }
 
@@ -59,8 +59,8 @@ public class MiFitDbUtils {
         int heartRate = 0;
         while(resultSet.moveToNext()){
             String[] heartRateStr = resultSet.getString(resultSet.getColumnIndex("BULKHR")).split(";");
-            for(int i = 0; i < heartRateStr.length; i++) {
-                String[] heartRatePointStr = heartRateStr[i].split(",");
+            for(String heartRateS : heartRateStr){
+                String[] heartRatePointStr = heartRateS.split(",");
                 heartRate += Integer.parseInt(heartRatePointStr[1]);
                 output.add(heartRate);
             }
@@ -75,8 +75,8 @@ public class MiFitDbUtils {
         long timestamp = ((long) trackId) * 1000L;
         while(resultSet.moveToNext()){
             String[] timestampsStr = resultSet.getString(resultSet.getColumnIndex("BULKTIME")).split(";");
-            for(int i = 0; i < timestampsStr.length; i++) {
-                timestamp += (Long.parseLong(timestampsStr[i]) * 1000L);
+            for(String time : timestampsStr){
+                timestamp += (Long.parseLong(time) * 1000L);
                 output.add(new Date(timestamp));
             }
         }

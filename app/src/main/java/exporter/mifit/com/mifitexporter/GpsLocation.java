@@ -1,12 +1,12 @@
 package exporter.mifit.com.mifitexporter;
 
 public class GpsLocation {
-    float latitude;
-    float longitude;
-    float altitude;
+    private float latitude;
+    private float longitude;
+    private float altitude;
 
 
-    public GpsLocation(float latitude, float longitude, float altitude) {
+    GpsLocation(float latitude, float longitude, float altitude) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.altitude = altitude;

@@ -6,7 +6,7 @@ public class StravaData {
     protected int type;
     protected long timestamp;
 
-    public StravaData(String gpxPath, String activityName, int type, long timestamp) {
+    StravaData(String gpxPath, String activityName, int type, long timestamp) {
         this.gpxPath = gpxPath;
         this.activityName = activityName;
         this.type = type;

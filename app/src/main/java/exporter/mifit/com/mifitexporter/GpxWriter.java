@@ -5,14 +5,20 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class GpxWriter {
 
-    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-    private static final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+    private final SimpleDateFormat dateFormat;
+    private final SimpleDateFormat timeFormat;
 
-    public static String writeGpxFile(String writePath, List<Date> timestamps, List<GpsLocation> locationList, List<Integer> heartRates){
-        String fileName = null;
+    GpxWriter(Locale locale){
+        dateFormat = new SimpleDateFormat("yyyy-MM-dd", locale);
+        timeFormat = new SimpleDateFormat("HH:mm:ss", locale);
+    }
+
+    public String writeGpxFile(String writePath, List<Date> timestamps, List<GpsLocation> locationList, List<Integer> heartRates){
+        String fileName;
         try {
             Date initalTimestamp = timestamps.get(0);
             String timeStr = dateFormat.format(initalTimestamp)+"T"+timeFormat.format(initalTimestamp);

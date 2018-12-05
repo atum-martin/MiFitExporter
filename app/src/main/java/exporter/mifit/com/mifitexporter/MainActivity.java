@@ -54,7 +54,12 @@ public class MainActivity extends AppCompatActivity {
 
             new Thread(){
                 public void run(){
-                    new StravaUploader(code, stravaData, getString(R.string.client_secret));
+                    //ensure lock is released.
+                    try {
+                        new StravaUploader(code, stravaData, getString(R.string.client_secret));
+                    } catch(Exception e){
+                        e.printStackTrace();
+                    }
                     stravaLock.set(false);
                 }
             }.start();
@@ -72,13 +77,19 @@ public class MainActivity extends AppCompatActivity {
             //lock in use;
             return;
         }
-        List<GpsLocation> locations = db.getGpsLocataionsForTrack(trackId);
-        List<Integer> heartrates = db.getHeartRateForTrack(trackId);
-        List<Date> dates = db.getTimestampsForTrack(trackId);
+        try {
+            List<GpsLocation> locations = db.getGpsLocataionsForTrack(trackId);
+            List<Integer> heartrates = db.getHeartRateForTrack(trackId);
+            List<Date> dates = db.getTimestampsForTrack(trackId);
+            GpxWriter writer = new GpxWriter(getResources().getConfiguration().locale);
+            String outputFile = writer.writeGpxFile(dbFolder, dates, locations, heartrates);
 
-        String outputFile = GpxWriter.writeGpxFile(dbFolder, dates, locations, heartrates);
-
-        stravaUploader(outputFile, type, generateActivityName(trackId, type), (trackId * 1000L));
+            stravaUploader(outputFile, type, generateActivityName(trackId, type), (trackId * 1000L));
+        } catch(Exception e){
+            e.printStackTrace();
+            stravaLock.set(false);
+            throw e;
+        }
     }
 
     private String generateActivityName(long timestamp, int type){
