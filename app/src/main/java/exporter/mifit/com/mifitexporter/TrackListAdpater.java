@@ -47,9 +47,14 @@ public class TrackListAdpater extends BaseAdapter implements ListAdapter {
         text.setText((String) getItem(position));
         text.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
-                Track t = trackList.get(position);
-                context.dumpTrackToStrava(t.trackId, t.type);
-                Toast.makeText(context, "Dumping "+t.toString()+" to Strava.", Toast.LENGTH_LONG);
+                final Track t = trackList.get(position);
+                new Thread(){
+                    public void run(){
+                        context.dumpTrackToStrava(t.trackId, t.type);
+                        //Toast.makeText(context, "Dumping "+t.toString()+" to Strava.", Toast.LENGTH_LONG);
+                    }
+                }.start();
+
             }
         });
         return view;

@@ -56,6 +56,7 @@ public class GpxWriter {
                 printWriter.println("     <gpxtpx:TrackPointExtension>");
                 if (i < heartRates.size()) {
                     printWriter.println("      <gpxtpx:hr>" + heartRates.get(i) + "</gpxtpx:hr>");
+                    printWriter.println("      <gpxtpx:atemp>"+ WeatherApi.getAirTempForTimestamp(dataPointTimestamp.getTime(), location.getLatitude(), location.getLongitude())+"</gpxtpx:atemp>");
                 }
                 printWriter.println("     </gpxtpx:TrackPointExtension>");
                 printWriter.println("    </extensions>");
