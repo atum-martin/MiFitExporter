@@ -19,8 +19,14 @@ public class ExampleInstrumentedTest {
     @Test
     public void useAppContext() {
         // Context of the app under test.
-        Context appContext = InstrumentationRegistry.getTargetContext();
+        /*Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("exporter.mifit.com.mifitexporter", appContext.getPackageName());
+        assertEquals("exporter.mifit.com.mifitexporter", appContext.getPackageName());*/
+        WeatherApi.getAirTempForTimestamp(System.currentTimeMillis(),53,-6);
+    }
+
+    @Test
+    public void test2(){
+        WeatherApi.getAirTempForTimestamp(System.currentTimeMillis(),53,-6);
     }
 }
