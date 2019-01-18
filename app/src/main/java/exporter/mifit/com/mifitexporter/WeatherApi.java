@@ -68,7 +68,10 @@ public class WeatherApi {
                 JSONObject sample1 = arr.getJSONObject(i);
                 long unixtime = parseDate(sample1.getJSONObject("utcdate"));
                 double airTemp = sample1.getDouble("tempm");
-                dataPoints.add(new WeatherData(unixtime, airTemp));
+                double windChill = sample1.getDouble("windchillm");
+                if(windChill == -999)
+                    windChill = 0;
+                dataPoints.add(new WeatherData(unixtime, airTemp+windChill));
             }
             putCache(timestamp,lat,lon, dataPoints);
             return dataPoints;
