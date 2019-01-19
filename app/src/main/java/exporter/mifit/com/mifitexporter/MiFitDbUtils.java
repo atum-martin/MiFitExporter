@@ -61,8 +61,11 @@ public class MiFitDbUtils {
             String[] heartRateStr = resultSet.getString(resultSet.getColumnIndex("BULKHR")).split(";");
             for(String heartRateS : heartRateStr){
                 String[] heartRatePointStr = heartRateS.split(",");
-                heartRate += Integer.parseInt(heartRatePointStr[1]);
-                output.add(heartRate);
+                System.out.println("hr str: "+heartRateS);
+                if(heartRatePointStr.length > 1) {
+                    heartRate += Integer.parseInt(heartRatePointStr[1]);
+                    output.add(heartRate);
+                }
             }
         }
         resultSet.close();
