@@ -57,10 +57,10 @@ public class GpxWriter {
                 if (i < heartRates.size()) {
                     printWriter.println("      <gpxtpx:hr>" + heartRates.get(i) + "</gpxtpx:hr>");
                 }
-                double airTemp = WeatherApi.getAirTempForTimestamp(dataPointTimestamp.getTime(), location.getLatitude(), location.getLongitude());
+                /*double airTemp = WeatherApi.getAirTempForTimestamp(dataPointTimestamp.getTime(), location.getLatitude(), location.getLongitude());
                 if(airTemp != Integer.MIN_VALUE) {
                     printWriter.println("      <gpxtpx:atemp>" + airTemp + "</gpxtpx:atemp>");
-                }
+                }*/
                 printWriter.println("     </gpxtpx:TrackPointExtension>");
                 printWriter.println("    </extensions>");
                 printWriter.println("   </trkpt>");
