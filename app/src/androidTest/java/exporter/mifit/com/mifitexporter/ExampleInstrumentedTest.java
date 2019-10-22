@@ -22,11 +22,11 @@ public class ExampleInstrumentedTest {
         /*Context appContext = InstrumentationRegistry.getTargetContext();
 
         assertEquals("exporter.mifit.com.mifitexporter", appContext.getPackageName());*/
-        WeatherApi.getAirTempForTimestamp(System.currentTimeMillis(),53,-6);
+        WeatherApi.getAirTempForTimestamp(System.currentTimeMillis(),53.356,-6.9574);
     }
 
     @Test
     public void test2(){
-        WeatherApi.getAirTempForTimestamp(System.currentTimeMillis(),53,-6);
+        WeatherApi.getAirTempForTimestamp(System.currentTimeMillis(),53.356,-6.9574);
     }
 }
