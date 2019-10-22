@@ -17,7 +17,7 @@ public class GpxWriter {
         timeFormat = new SimpleDateFormat("HH:mm:ss", locale);
     }
 
-    public String writeGpxFile(String writePath, List<Date> timestamps, List<GpsLocation> locationList, List<Integer> heartRates){
+    public String writeGpxFile(String writePath, List<Date> timestamps, List<GpsLocation> locationList, List<HeartRate> heartRates){
         String fileName;
         try {
             Date initalTimestamp = timestamps.get(0);
@@ -55,7 +55,7 @@ public class GpxWriter {
                 printWriter.println("    <extensions>");
                 printWriter.println("     <gpxtpx:TrackPointExtension>");
                 if (i < heartRates.size()) {
-                    printWriter.println("      <gpxtpx:hr>" + heartRates.get(i) + "</gpxtpx:hr>");
+                    printWriter.println("      <gpxtpx:hr>" + getHeartRateForTimestamp(dataPointTimestamp.getTime(), heartRates) + "</gpxtpx:hr>");
                 }
                 printWriter.println("      <gpxtpx:atemp>"+ WeatherApi.getAirTempForTimestamp(dataPointTimestamp.getTime(), location.getLatitude(), location.getLongitude())+"</gpxtpx:atemp>");
                 printWriter.println("     </gpxtpx:TrackPointExtension>");
@@ -71,5 +71,20 @@ public class GpxWriter {
             e.printStackTrace();
         }
         return null;
+    }
+
+    private int getHeartRateForTimestamp(long time, List<HeartRate> heartRates){
+        HeartRate result = null;
+        long currentDiff = Long.MAX_VALUE;
+        for(HeartRate hr : heartRates){
+            long diff = Math.abs(time-hr.getTimestamp());
+            if(diff <= currentDiff){
+                currentDiff = diff;
+                result = hr;
+            }
+        }
+        if(result == null)
+            return 0;
+        return result.getHR();
     }
 }

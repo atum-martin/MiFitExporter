@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         }
         try {
             List<GpsLocation> locations = db.getGpsLocataionsForTrack(trackId);
-            List<Integer> heartrates = db.getHeartRateForTrack(trackId);
+            List<HeartRate> heartrates = db.getHeartRateForTrack(trackId);
             List<Date> dates = db.getTimestampsForTrack(trackId);
             GpxWriter writer = new GpxWriter(getResources().getConfiguration().locale);
             String outputFile = writer.writeGpxFile(dbFolder, dates, locations, heartrates);

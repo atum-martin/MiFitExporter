@@ -53,18 +53,22 @@ public class MiFitDbUtils {
         return output;
     }
 
-    public List<Integer> getHeartRateForTrack(int trackId){
-        ArrayList<Integer> output = new ArrayList<>();
+    public List<HeartRate> getHeartRateForTrack(int trackId){
+        ArrayList<HeartRate> output = new ArrayList<>();
         Cursor resultSet = connection.rawQuery("select BULKHR from TRACKDATA where TRACKID = " +trackId,null);
         int heartRate = 0;
+        long timestamp = ((long) trackId) * 1000L;
         while(resultSet.moveToNext()){
             String[] heartRateStr = resultSet.getString(resultSet.getColumnIndex("BULKHR")).split(";");
             for(String heartRateS : heartRateStr){
                 String[] heartRatePointStr = heartRateS.split(",");
                 System.out.println("hr str: "+heartRateS);
                 if(heartRatePointStr.length > 1) {
+
                     heartRate += Integer.parseInt(heartRatePointStr[1]);
-                    output.add(heartRate);
+                    timestamp += (Long.parseLong(heartRatePointStr[0]) * 1000L);
+                    HeartRate hr = new HeartRate(heartRate, timestamp);
+                    output.add(hr);
                 }
             }
         }
