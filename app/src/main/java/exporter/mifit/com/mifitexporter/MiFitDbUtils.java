@@ -66,6 +66,8 @@ public class MiFitDbUtils {
                 if(heartRatePointStr.length > 1) {
 
                     heartRate += Integer.parseInt(heartRatePointStr[1]);
+                    if(heartRatePointStr[0].length() <= 0)
+                        heartRatePointStr[0] = "0";
                     timestamp += (Long.parseLong(heartRatePointStr[0]) * 1000L);
                     HeartRate hr = new HeartRate(heartRate, timestamp);
                     output.add(hr);
