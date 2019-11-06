@@ -15,6 +15,8 @@ public class GpxWriter {
     GpxWriter(Locale locale){
         dateFormat = new SimpleDateFormat("yyyy-MM-dd", locale);
         timeFormat = new SimpleDateFormat("HH:mm:ss", locale);
+        dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+		timeFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
     }
 
     public String writeGpxFile(String writePath, List<Date> timestamps, List<GpsLocation> locationList, List<HeartRate> heartRates){
